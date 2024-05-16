@@ -14,7 +14,7 @@ const rename = require('gulp-rename');
 let debug = false;
 
 function cleanDir(cb) {
-    return src(debug?['temp/*']:['dist/*', 'temp/*']).pipe(clean());
+    return src(debug ? ['temp/*'] : ['dist/*', 'temp/*']).pipe(clean());
 }
 
 function buildLess(cb) {
@@ -39,7 +39,7 @@ function buildTs(cb) {
     if (!debug) {
         a = a.pipe(uglify());
     }
-        // .pipe(uglify())
+    // .pipe(uglify())
     return a.pipe(dest("temp"));
 }
 
@@ -58,8 +58,8 @@ function collect(cb) {
             return file.contents.toString('utf8');
         }
     }))
-        .pipe(rename('kabi-novel.html'))
-        .pipe(dest(debug?'temp':'dist'));
+        .pipe(rename('index.html'))
+        .pipe(dest(debug ? 'temp' : 'dist'));
 }
 
 const task = series(cleanDir, parallel(buildTs, buildLess), collect);
